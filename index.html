@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container-fluid" style="margin-top: 50px;">
+        <div class="col-md-offset-1 col-md-4">
+            <h3 class="page-header text-primary text-center">UPLOAD FILES</h3>
+            {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% else %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+   <!--Upload files for staffs view and download--->     
+    <form action="{% url 'uploadfile' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>SUBJECT NAME</label>
+                    {{form.subject_name}}
+                </div><br>
+                <div class="form-group">
+                    <label>STAFFS UPLOAD FILES HERE</label>
+                    {{form.file}}
+                </div><br>
+                <button type="submit" class="btn btn-primary pull-right">UPLOAD</button><br>
+        
+            
+        </div>
+
+<!--View files for staffs download and delete --->
+        <div class="col-md-6">
+            {% if mydata %}
+            <h3 class="page-header text-primary text-center">VIEW UPLOADED FILES</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">S.No</th>
+                        <th>SUBJECT NAME</th>
+                        <th>FILE NAME</th>
+    <!--staffs only--->    <th>DELETE</th>  
+                    </tr>
+                </thead>
+                {% for data in mydata %}
+                <tbody>
+                    <tr>
+                        <td style="text-align:center">{{forloop.counter}}</td>
+                        <td>{{data.subject_Name}}</td>
+                        <td><a href="{{data.my_file.url}}">{{data.my_file}}</a></td>
+<!--only for staffs--  -->  <td style="text-align:center"><a href="deletefile/{{data.id}}" class="btn btn-danger">DELETE</a></td> 
+                    </tr>
+                </tbody>
+            {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+    </form>
+    </div> 
+{% endblock %}

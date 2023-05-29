@@ -1,0 +1,41 @@
+{% include 'header.html' %}
+<title>Student Login</title>
+<div class="container-fluid" style="margin-top: 50px;">
+    <h3 class="page-header text-primary text-center">STUDENT LOGIN PORTAL</h3>
+
+    {% if request.user.is_authenticated %}
+    
+    <p class="text-success">You can download study materials after login.</p>
+    {% else %}
+    <p class="text-danger h3" >You Are Not Logged In</p>
+    {% endif %}
+
+<!-----------Display messages------------>
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% else %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+
+    <form action="{% url 'stu_login' %}" method="POST">
+      {% csrf_token %}
+    <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">ROLLNO</label>
+        <input type="text" class="form-control" id="inputrollno" name="rollno">
+      </div>
+
+      <div class="col-12">
+        <label for="inputAddress2" class="form-label">PASSWORD</label>
+        <input type="password" class="form-control" id="inputpassword" name="password">
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-success btn-lg">LOGIN</button>
+      </div>
+    </form>

@@ -1,0 +1,42 @@
+{% include 'header.html' %}
+<title>Students Registration</title>
+<div class="container-fluid" style="margin-top: 50px;">
+    <h3 class="page-header text-primary text-center">STUDENT REGISTRATION</h3>
+
+    <form action="{% url 'stureg' %}" method="POST"row g-3">{% csrf_token %}
+        <div class="col-md-6">
+          <label for="inputName" class="form-label">NAME</label>
+          <input type="text" class="form-control" id="inputname" name="name">
+        </div>
+        <div class="col-12">
+            <label for="inputAddress" class="form-label">SCHOOL NAME</label>
+            <input type="text" class="form-control" id="inputschoolname" name="school_name">
+          </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label">ROLLNO</label>
+          <input type="text" class="form-control" id="inputrollno" name="rollno">
+        </div>
+        <div class="col-12">
+            <label for="inputAddress2" class="form-label">EMAIL</label>
+            <input type="email" class="form-control" id="inputemail" name="email" >
+          </div>
+        
+        <div class="col-12">
+          <label for="inputAddress2" class="form-label">PASSWORD</label>
+          <input type="password" class="form-control" id="inputpassword" name="password">
+        </div>
+        <div class="col-md-6">
+          <label for="inputCity" class="form-label">CONFIRM PASSWORD</label>
+          <input type="password" class="form-control" id="inputconfirmpassword" name="confirm_password">
+        </div><br>
+
+        <div class="col-12">
+          <button type="submit" class="btn btn-success btn-lg">REGISTER</button>
+        </div>
+        <a href="{% url 'stu_login' %}">Already Registered? Please Login In</a>
+      </form>
+      <div class="form-group">
+        {% for message  in messages %}
+          <div class="alert alert-danger" role="alert">{{message}}</div>
+        {% endfor %}
+      </div>
